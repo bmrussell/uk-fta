@@ -93,7 +93,7 @@ if __name__ == "__main__":
                 
 
         if kind == DownloadKind.HELP:
-            print("USAGE:\n\titvx [-e <url> | -s <url> | -S <url>]\n\itvx [--episode <url> [--season <url> | --show <url>] [-h | --help]")
+            print("USAGE:\n\titvx [-e <url> | -s <url> | -S <url>]\n\titvx --show <url> [--season n[,n]] [--episode n[,n]] [--newest] [--help]")
 
         elif kind == DownloadKind.LIST:
             episodes = itv_loader.get_next_data(url)
