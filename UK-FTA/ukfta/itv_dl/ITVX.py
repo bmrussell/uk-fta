@@ -8,35 +8,34 @@
 # folder structures are created of the form ./output/ITV/'series-title'/'videos name'
 
 
+import glob
+import json
+import os
 import re
 import subprocess
+import sys
+import time
 from base64 import b64encode
 from pathlib import Path
+
 import httpx
-from httpx import  Client
-from selectolax.lexbor import LexborHTMLParser
-from beaupy.spinners import *
-import os
-from termcolor import colored
-import pyfiglet as PF
-import json
 import jmespath
-import sys
-import os, glob
+import pyfiglet as PF
+from beaupy.spinners import *
+from httpx import Client
 from rich.console import Console
 from scrapy import Selector
-import time
-
+from selectolax.lexbor import LexborHTMLParser
+from termcolor import colored
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(SCRIPT_DIR))
-from configs import  config
-
+from configs import config
 
 WVD_PATH = config.WVDPATH
 SAVE_PATH = Path(config.SAVEPATH)
 BATCH_DOWNLOAD = config.BATCH_DOWNLOAD
-SAVE_PATH.mkdir(exist_ok=True, parents=True)
+
 
 SUBS = False
 
@@ -178,7 +177,7 @@ class ITV:
         if BATCH_DOWNLOAD:
             subs = '--no-log'
 
-        OUT_PATH = Path(f'{SAVE_PATH}/ITV/{folder}')
+        OUT_PATH = Path(f'{SAVE_PATH}/{folder}')
         OUT_PATH.mkdir(exist_ok=True, parents=True)
         out_path = str(OUT_PATH)
         if INDEX:
