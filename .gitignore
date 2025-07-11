@@ -171,3 +171,4 @@ _temp/
 _tmp/
 .vscode/
 launch.json
+*.wvd
