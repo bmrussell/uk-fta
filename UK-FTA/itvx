@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+podman run --rm --volume /home/$USER/Downloads:/save -e UKFTA_PUSHOVER_TOKEN=$UKFTA_PUSHOVER_TOKEN -e UKFTA_PUSHOVER_KEY=$UKFTA_PUSHOVER_KEY itvx --path /save $@
+find ~/Downloads/ -type f -cmin -20
