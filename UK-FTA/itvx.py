@@ -113,14 +113,14 @@ if __name__ == "__main__":
                     episode_title = match.group(3)
 
                     do_season_download = False
-                    if season_number >= season_range[0] and season_number <= season_range[1]:
+                    if not newest and season_number >= season_range[0] and season_number <= season_range[1]:
                         do_season_download = True
 
                     do_episode_download = False
-                    if episode_number >= episode_range[0] and episode_number <= episode_range[1]:
+                    if not newest and episode_number >= episode_range[0] and episode_number <= episode_range[1]:
                         do_episode_download = True
 
-                    do_download_newest = newest and (i == len(episodes[0]) - 1)
+                    do_download_newest = newest and (i == 0)
                     
                     if (not newest and do_season_download and do_episode_download) or do_download_newest:
                         print(f"{episode_title} (S{season_number:02d}E{episode_number:02d}) from {episode_url}...", end=' ' )                    
