@@ -177,7 +177,8 @@ class ITV:
         if BATCH_DOWNLOAD:
             subs = '--no-log'
 
-        OUT_PATH = Path(f'{SAVE_PATH}/{folder}')
+        format_string = os.getenv("UKTV_FILENAME_FORMAT", "{SAVE_PATH}/ITV/{folder}")
+        OUT_PATH = Path(format_string.format(SAVE_PATH=SAVE_PATH, folder=folder))
         OUT_PATH.mkdir(exist_ok=True, parents=True)
         out_path = str(OUT_PATH)
         if INDEX:
