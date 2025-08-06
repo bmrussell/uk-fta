@@ -129,6 +129,11 @@ if __name__ == "__main__":
                             Notify(f"Downloaded {episode_title} (S{season_number:02d}E{episode_number:02d})")                             
                         print('Done.')
                         
+                elif episodes[1][0][:7] == "99 None":
+                    # Movie
+                    movie_title = episodes[1][0][8:]
+                    filename = myITV.download(episode_url, 'No')
+                    Notify(f"Downloaded {movie_title}")
                 else:
                     print(f"Skipping episode with unexpected format: {episodes[1][i]}")
                 

@@ -294,12 +294,15 @@ class ITV:
                 episodetitle = ''
                 
             
-            series_number = '{0:0=2d}'.format(series)
-            episode_number = '{0:0=2d}'.format(episode)
-            format_string = os.getenv("UKTV_FILENAME_FORMAT", "{title}-{channel}-S{series}E{episode}")
-            print(f"format_string={format_string}")
-            extendtitle = format_string.format(title=episodetitle, channel=channel, series=series_number, episode=episode_number)
-            
+            if series is not None and episode is not None:
+                series_number = '{0:0=2d}'.format(series)
+                episode_number = '{0:0=2d}'.format(episode)
+                format_string = os.getenv("UKTV_FILENAME_FORMAT", "{title}-{channel}-S{series}E{episode}")
+                print(f"format_string={format_string}")
+                extendtitle = format_string.format(title=episodetitle, channel=channel, series=series_number, episode=episode_number)
+            else:
+                extendtitle = title
+                         
             magni_url = jmespath.search('[ seriesList.[*].titles.[*].playlistUrl , episode.playlistUrl]', myjson)
             magni_url = (next (item for item in magni_url if item is not None))
             
