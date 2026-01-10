@@ -57,8 +57,9 @@ if __name__ == "__main__":
     itv_loader.PAGE_SIZE = 999      # Don't prompt for more pages
     itv_loader.ROW_COUNT = 999
         
-    try:
+    try:        
         myITV= ITVX.ITV()
+        ITVX.SAVE_PATH = os.path.join(os.path.expanduser('~'), 'Downloads')
         kind = DownloadKind.DOWNLOAD
         
         opts, args = getopt.getopt(sys.argv[1:], 
