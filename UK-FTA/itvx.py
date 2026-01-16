@@ -15,6 +15,7 @@ sys.path.append(os.path.abspath('ukfta/configs'))
 from ukfta.configs import config
 from ukfta.itv_dl import ITVX, itv_loader
 
+USAGE="USAGE: itvx --show <url> [--PATH path] [--episode x[,y]|[--season x[,y]]|[--newest] [--whatif] [-h | --help]"
 
 class DownloadKind(Enum):
     HELP = 0
@@ -67,6 +68,7 @@ if __name__ == "__main__":
                                    ['episode=','season=','show=','list=','help','newest','path=', "whatif"]
                                    )
         for opt, arg in opts:
+            # print(f"Option: {opt}, Argument: {arg}")
             if opt in ('-l', '--list'):
                 kind = DownloadKind.LIST
                 url = arg
@@ -94,7 +96,7 @@ if __name__ == "__main__":
                 
 
         if kind == DownloadKind.HELP:
-            print("USAGE:\n\titvx [-e <url> | -s <url> | -S <url>]\n\titvx --show <url> [--season n[,n]] [--episode n[,n]] [--newest] [--help]")
+            print(f"{USAGE}")
 
         elif kind == DownloadKind.LIST:
             episodes = itv_loader.get_next_data(url)
@@ -140,7 +142,8 @@ if __name__ == "__main__":
                 
     except (getopt.GetoptError, ValueError) as ex:
         print(f"{str(ex)}")
-        print("USAGE:\n\titvx [-e <url> | -s <url> | -S <url>]\n\titvx [--episode <url> [--season <url> | --show <url>] [-h | --help]")
+        print(sys.argv[1:])
+        print(f"{USAGE}")
 
     except Exception as ex:
          print(f"Failed: {str(ex)}")

@@ -11,10 +11,13 @@ pip install -r requirements.txt
 
 ## BUILD
 ```bash
-podman build -t itvx --label keep=true .
+docker build -t itvx --label keep=true .
 ```
 
 ## RUN
 ```bash
-podman run --rm --volume /home/$USER/Downloads:/save -e UKFTA_PUSHOVER_TOKEN=$UKFTA_PUSHOVER_TOKEN -e UKFTA_PUSHOVER_KEY=$UKFTA_PUSHOVER_KEY itvx --path /save $@
+docker run --rm --volume /home/$USER/Downloads:/save -e UKFTA_PUSHOVER_TOKEN=$UKFTA_PUSHOVER_TOKEN -e UKFTA_PUSHOVER_KEY=$UKFTA_PUSHOVER_KEY itvx --path /save --show $url --episode 1
+docker run --rm --volume /home/$USER/Downloads:/save -e UKFTA_PUSHOVER_TOKEN=$UKFTA_PUSHOVER_TOKEN -e UKFTA_PUSHOVER_KEY=$UKFTA_PUSHOVER_KEY itvx --path /save --show $url --season 2,4
+docker run --rm --volume /home/$USER/Downloads:/save -e UKFTA_PUSHOVER_TOKEN=$UKFTA_PUSHOVER_TOKEN -e UKFTA_PUSHOVER_KEY=$UKFTA_PUSHOVER_KEY itvx --path /save --show $url --episode 1,12 --whatif
+docker run --rm --volume /home/$USER/Downloads:/save -e UKFTA_PUSHOVER_TOKEN=$UKFTA_PUSHOVER_TOKEN -e UKFTA_PUSHOVER_KEY=$UKFTA_PUSHOVER_KEY itvx --path /save --show $url --newest
 ```
