@@ -372,7 +372,7 @@ def check_file(file_name, file_size = 300):
         return False
 
 
-def get_streams(mpd, decryption_key, output_title, brand_title): 
+def get_streams(mpd, decryption_key, output_title, brand_title, path=SAVE_PATH):
     SUBS = False
     brand_title = brand_title
     brand_title = clean(brand_title) 
@@ -397,6 +397,8 @@ def get_streams(mpd, decryption_key, output_title, brand_title):
     except:
         pass
     
+    global DOWNLOAD_DIR
+    DOWNLOAD_DIR = Path(path)
     if SUBS:
         command = ([
             n_m3u8dl,
@@ -409,7 +411,7 @@ def get_streams(mpd, decryption_key, output_title, brand_title):
                 '--save-name',
                 output_title,
                 '--save-dir',
-                f'{DOWNLOAD_DIR}/C4/{brand_title}/',
+                f'{path}/C4/{brand_title}/',
                 '--tmp-dir',
                 TMP_DIR,
                 #'--use-shaka-packager',
@@ -437,7 +439,7 @@ def get_streams(mpd, decryption_key, output_title, brand_title):
                 '--save-name',
                 output_title,
                 '--save-dir',
-                f'{DOWNLOAD_DIR}/C4/{brand_title}/',
+                f'{path}/C4/{brand_title}/',
                 '--tmp-dir',
                 TMP_DIR,
                 #'--use-shaka-packager',
@@ -455,18 +457,19 @@ def get_streams(mpd, decryption_key, output_title, brand_title):
 
 
     if BATCH_DOWNLOAD:
-        with open(f'{SAVE_PATH}/batch.txt', 'a') as f:
+        with open(f'{path}/batch.txt', 'a') as f:
             f.write(' '.join(cleaned_command) + '\n')
     else:
         # print(command)
         subprocess.run(command)
-        print(f"File saved to {DOWNLOAD_DIR}/{brand_title}")
+aw        print(f"File saved to {path}/{brand_title}")
         for f in glob.glob("./subs.srt"):
             os.remove(f)
     return
 
 ### alternate downloader
 def get_streams_by_ytdlp(mpd, decryption_key, output_title, brand_title): 
+    global DOWNLOAD_DIR
     brand_title = brand_title
     brand_title = clean(brand_title) 
     output_title = clean(output_title)
@@ -552,7 +555,8 @@ def clean(videoname):
         videoname = videoname.replace(rep, replacements[rep])
     return videoname
 
-def main(url ):
+def main(url, path=SAVE_PATH):
+    global DOWNLOAD_DIR
     wvd = WVD_PATH
 
     config = get_config()
@@ -629,7 +633,7 @@ def main(url ):
     spinner.stop()
     if C4_USES_N_m3u8DLRE:
 
-        get_streams(config.drm_today.video.url, decryption_key, videoname, encrypted_vod_stream.brand_title)
+        get_streams(config.drm_today.video.url, decryption_key, videoname, encrypted_vod_stream.brand_title, path)
     else:
         get_streams_by_ytdlp(config.drm_today.video.url, decryption_key, videoname, encrypted_vod_stream.brand_title)
     

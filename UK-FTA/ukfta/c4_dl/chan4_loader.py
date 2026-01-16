@@ -100,7 +100,7 @@ def create_connection():
   return conn
 
 
-def get_next_data(url , title):
+def get_next_data(url , title, path=C4.SAVE_PATH):
     global client
     spinner = Spinner(DOTS, "Collecting data - please wait ...")
     spinner.start()
@@ -216,7 +216,7 @@ def get_next_data(url , title):
         print_back(2, "Only one video found. Loading directly...")
         for col in rows:
             url = col[3]
-        C4.main(url)
+        C4.main(url, path)
         exit(0)
         
     return index, beaupylist 

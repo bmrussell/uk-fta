@@ -30,3 +30,7 @@ BATCH_DOWNLOAD = False
 
 
 C4_USES_N_m3u8DLRE = True      # Do not change
+
+def update_savepath(new_path: str):
+    global SAVEPATH
+    SAVEPATH = new_path
