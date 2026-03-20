@@ -57,6 +57,13 @@ RUN mkdir /save
 #&& chown -R ${APP_USER} /save
 #USER ${APP_USER}
 
+ARG UID=1000
+ARG GID=1000
+
+RUN groupadd -g "${GID}" python \
+  && useradd --create-home --no-log-init -u "${UID}" -g "${GID}" python
+
+USER python
 
 # During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
 ENTRYPOINT ["python", "itvx.py"]

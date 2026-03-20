@@ -15,7 +15,16 @@ sys.path.append(os.path.abspath('ukfta/configs'))
 from ukfta.configs import config
 from ukfta.itv_dl import ITVX, itv_loader
 
-USAGE="USAGE: itvx --show <url> [--PATH path] [--episode x[,y]|[--season x[,y]]|[--newest] [--whatif] [-h | --help]"
+USAGE="""USAGE:
+itvx --show <url> [--PATH path] [--episode x[,y]|[--season x[,y]]|[--newest] [--whatif] [-h | --help]
+
+itvx --list $url
+itvx --show $url --newest
+itvx --show $url --episode 1,10
+itvx --show $url --season 10
+itvx --show $url --episode 2,3 --whatif
+"""
+
 
 class DownloadKind(Enum):
     HELP = 0
